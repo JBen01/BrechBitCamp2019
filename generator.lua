@@ -135,35 +135,42 @@ generator.bulletMovements = function(dt)
 			if bullet.x > 0 then
 				bullet.x = bullet.x - ((10*70)*dt) 
 			end
-			if bullet.x < 0 then
-				table.remove(bullets, i)
-			end
 			for j, alien in ipairs(aliens) do
-				if bullet.x < alien.x + 64  and bullet.y > alien.y and bullet.y < alien.y + 64 then
-					alien.dead = true
-					table.remove(bullets, i)
-				end
-				if alien.dead == true then
-					table.remove(aliens, j)
+				if alien.x < player.x + 64 then
+					if bullet.x < alien.x + 64  and bullet.y > alien.y and bullet.y < alien.y + 64 then
+						alien.dead = true
+						table.remove(bullets, i)
+					end
+					if alien.dead == true then
+						table.remove(aliens, j)
+					end
 				end
 			end
 		end
 		if bullet.dir == "right" then
-			for j, alien in ipairs(aliens) do
-				if bullet.x < alien.x + 64  and bullet.y > alien.y and bullet.y < alien.y + 64 then
-					alien.dead = true
-					table.remove(bullets, i)
-				end
-				if alien.dead == true then
-					table.remove(aliens, j)
+			if bullet.x > love.graphics.getWidth() then
+				table.remove(bullets, i)
+			end
+			for l, alien in ipairs(aliens) do
+				if alien.x > player.x then
+					if bullet.x > alien.x and bullet.y > alien.y and bullet.y < alien.y + 64 then
+						alien.dead = true
+					end
+					if alien.dead == true then
+						table.remove(aliens, l)
+						table.remove(bullets, i)
+					end
 				end
 			end
 			if bullet.x < love.graphics.getWidth() then
 				bullet.x = bullet.x + ((10*70)*dt) 
 			end
-			if bullet.x > love.graphics.getWidth() then
-				table.remove(bullets, i)
-			end
+		end
+		if bullet.x > love.graphics.getWidth() then
+			table.remove(bullets, i)
+		end
+		if bullet.x < 0 then
+			table.remove(bullets, i)
 		end
 	end
 end

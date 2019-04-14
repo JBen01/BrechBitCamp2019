@@ -11,7 +11,7 @@ spawnCenter = true
 spawnBottom = true
 
 aliens.spawn = function(dt)
-	randomSpawntime = love.math.random(3, 5)
+	randomSpawntime = love.math.random(3, 4)
 	if spawnTime < randomSpawntime then
 		spawnTime = spawnTime + dt
 	end
@@ -52,14 +52,14 @@ aliens.spawn = function(dt)
 			player.health = player.health - 1
 		elseif (player.x > alien.x + 32 and player.x < alien.x + 64 * 10) and player.x < 64*19 and player.y < alien.y +64
 		and player.y > alien.y - 32 and alien.attack == false then
-			alien.x = alien.x + ((10*5)*dt)
+			alien.x = alien.x + ((10*10)*dt)
 		elseif (player.x < alien.x and player.x < alien.x + 64 * 4) and player.x < 64*19 and player.y < alien.y +64
 		and player.y > alien.y - 64 and alien.attack == false then
-			alien.x = alien.x - ((10*5)*dt)
+			alien.x = alien.x - ((10*10)*dt)
 		elseif alien.x < love.graphics.getWidth()/2 -64 then
-			alien.x = alien.x + ((10*5)*dt)
+			alien.x = alien.x + ((10*10)*dt)
 		elseif alien.x > love.graphics.getWidth()/2 +32 then
-			alien.x = alien.x - ((10*5)*dt)
+			alien.x = alien.x - ((10*10)*dt)
 		end
 	end
 	
@@ -86,9 +86,9 @@ end
 aliens.draw = function(dt)
 	for i, alien in ipairs(aliens) do
 		love.graphics.draw(alien.img, alien.x, alien.y)
-		love.graphics.print(alien.spawn, alien.x, alien.y)
+		--love.graphics.print(alien.spawn, alien.x, alien.y)
 	end
-	love.graphics.print(randomSpawn, 440, 15)
+	--love.graphics.print(randomSpawn, 440, 15)
 end
 
 return aliens
